@@ -72,6 +72,49 @@ spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.show-sql=true
 ```
 
+## Autenticacao JWT
+
+A API usa autenticacao stateless com JWT. O endpoint publico de login e:
+
+```text
+POST /erp-api/auth/login
+```
+
+Corpo da requisicao:
+
+```json
+{
+  "username": "admin",
+  "password": "sua_senha"
+}
+```
+
+Resposta:
+
+```json
+{
+  "token": "jwt_gerado",
+  "tokenType": "Bearer"
+}
+```
+
+As demais rotas devem receber o token no header:
+
+```text
+Authorization: Bearer jwt_gerado
+```
+
+Por ser um projeto didatico, a chave de assinatura do JWT esta fixa no codigo em `JwtService`.
+
+Para criar automaticamente um usuario inicial no primeiro boot, defina tambem:
+
+```cmd
+set ERP_INITIAL_USER=admin
+set ERP_INITIAL_PASSWORD=sua_senha
+```
+
+Se `ERP_INITIAL_USER` ja existir no banco, a aplicacao nao altera a senha desse usuario.
+
 ## Documentacao da API
 
 A documentacao da API fica disponivel apos o deploy:
