@@ -1,0 +1,57 @@
+<main class="login-page">
+  <section class="login-panel" aria-label="Login do ERP">
+    <div class="brand">
+      <span class="brand-mark">ERP</span>
+      <div>
+        <strong>Paulo Vargas</strong>
+        <small>Full Stack Lab</small>
+      </div>
+    </div>
+
+    <div class="heading">
+      <p class="eyebrow">Acesso ao sistema</p>
+      <h1>Login</h1>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <label>
+        CNPJ/CPF
+        <input
+          type="text"
+          formControlName="login"
+          [ngClass]="{'is-invalid': login.touched && login.errors}"
+          placeholder="Informe seu usuario"
+          autocomplete="username"
+        />
+        @if (login.errors && login.touched) {
+          <span class="field-error">Informe o CNPJ/CPF.</span>
+        }
+      </label>
+
+      <label>
+        Senha
+        <input
+          type="password"
+          formControlName="password"
+          [ngClass]="{'is-invalid': password.touched && password.errors}"
+          placeholder="Digite sua senha"
+          autocomplete="current-password"
+        />
+        @if (password.errors && password.touched) {
+          <span class="field-error">Digite sua senha.</span>
+        }
+      </label>
+
+      @if (isLoginFailed) {
+        <div class="login-error">{{ errorMessage }}</div>
+      }
+
+      <button type="submit">Entrar</button>
+    </form>
+
+    <div class="first-access">
+      <strong>Primeiro acesso?</strong>
+      <span>Solicite uma senha pelo telefone (51) 9 9528-6771.</span>
+    </div>
+  </section>
+</main>

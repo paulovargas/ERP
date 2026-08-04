@@ -1,0 +1,82 @@
+<main class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">ERP</span>
+      <div>
+        <strong>Paulo Vargas</strong>
+        <small>Full Stack Lab</small>
+      </div>
+    </div>
+
+    <nav aria-label="Modulos do ERP">
+      @for (item of navigation; track item) {
+        <a href="#">{{ item }}</a>
+      }
+    </nav>
+  </aside>
+
+  <section class="workspace">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Painel operacional</p>
+        <h1>ERP Full Stack</h1>
+      </div>
+      <div class="topbar-actions">
+        <div class="status">
+          <span></span>
+          API Spring Boot + Angular
+        </div>
+        <button type="button" class="secondary-button" (click)="logout()">Sair</button>
+      </div>
+    </header>
+
+    <section class="metrics" aria-label="Indicadores principais">
+      @for (metric of metrics; track metric.label) {
+        <article>
+          <small>{{ metric.label }}</small>
+          <strong>{{ metric.value }}</strong>
+          <span>{{ metric.detail }}</span>
+        </article>
+      }
+    </section>
+
+    <section class="content-grid">
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Dominios implementados</p>
+            <h2>Fluxo financeiro</h2>
+          </div>
+          <button type="button">Ver API</button>
+        </div>
+
+        <div class="timeline">
+          @for (step of workflow; track step.title) {
+            <div class="step">
+              <span>{{ step.index }}</span>
+              <div>
+                <strong>{{ step.title }}</strong>
+                <p>{{ step.description }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Stack demonstrada</p>
+            <h2>Conhecimentos reunidos</h2>
+          </div>
+        </div>
+
+        <div class="skill-list">
+          @for (skill of skills; track skill) {
+            <span>{{ skill }}</span>
+          }
+        </div>
+      </article>
+    </section>
+  </section>
+</main>

@@ -1,0 +1,553 @@
+[1m[33mComponent HMR has been enabled, see https://angular.dev/hmr for more info.[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isAuthenticated' does not exist on type 'AuthService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/core/auth.guard.ts:9:18:
+[37m      9 │   if (authService.[32misAuthenticated[37m()) {
+        ╵                   [32m~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'getToken' does not exist on type 'AuthService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/core/auth.interceptor.ts:6:36:
+[37m      6 │   const token = inject(AuthService).[32mgetToken[37m();
+        ╵                                     [32m~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS-992003: No suitable injection token for parameter 'authService' of class 'UsuarioService'.
+  Consider using the @Inject decorator to specify an injection token.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/core/services/usuario.service.ts:9:12:
+[37m      9 │     private [32mauthService[37m: AuthenticationService,
+        ╵             [32m~~~~~~~~~~~[0m
+
+  This type does not have a value, so it cannot be used as injection token.
+
+    src/app/core/services/usuario.service.ts:9:25:
+[37m      9 │     private authService: [32mAuthenticationService[37m,
+        ╵                          [32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2304: Cannot find name 'AuthenticationService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/core/services/usuario.service.ts:9:25:
+[37m      9 │     private authService: [32mAuthenticationService[37m,
+        ╵                          [32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2304: Cannot find name 'StorageService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/core/services/usuario.service.ts:10:21:
+[37m      10 │     private storage: [32mStorageService[37m,
+         ╵                      [32m~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2304: Cannot find name 'HttpClient'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/core/services/usuario.service.ts:11:18:
+[37m      11 │     private http: [32mHttpClient[37m
+         ╵                   [32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'logout' does not exist on type 'AuthService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/dashboard/dashboard.component.ts:61:21:
+[37m      61 │     this.authService.[32mlogout[37m();
+         ╵                      [32m~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'logout' does not exist on type 'AuthService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:47:21:
+[37m      47 │     this.authService.[32mlogout[37m();
+         ╵                      [32m~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'storage' does not exist on type 'LoginComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:65:15:
+[37m      65 │           this.[32mstorage[37m.setState("token" , token),
+         ╵                [32m~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'storage' does not exist on type 'LoginComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:66:15:
+[37m      66 │           this.[32mstorage[37m.setState("loginUsuario" , login)
+         ╵                [32m~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'consultaDadosUsuario' does not exist on type 'UsuarioService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:67:23:
+[37m      67 │           this.usuario.[32mconsultaDadosUsuario[37m(login).subscribe({
+         ╵                        [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS7006: Parameter 'usuario' implicitly has an 'any' type.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:68:18:
+[37m      68 │             next: [32musuario[37m => {
+         ╵                   [32m~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'setUsuarioLogado' does not exist on type 'UsuarioService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:70:27:
+[37m      70 │               this.usuario.[32msetUsuarioLogado[37m(this.dadosUsuario),
+         ╵                            [32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'storage' does not exist on type 'LoginComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:71:19:
+[37m      71 │               this.[32mstorage[37m.setState("idUsuarios" , this.dadosUsuar...
+         ╵                    [32m~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'storage' does not exist on type 'LoginComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:72:19:
+[37m      72 │               this.[32mstorage[37m.setState("dadosUsuario" ,usuario.dados),
+         ╵                    [32m~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'agencia' does not exist on type 'LoginComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:73:19:
+[37m      73 │               this.[32magencia[37m.consultaGaragem(this.dadosUsuario?.idGa...
+         ╵                    [32m~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS7006: Parameter 'data' implicitly has an 'any' type.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:73:94:
+[37m      73 │ ...ragem(this.dadosUsuario?.idGaragem.toString()).subscribe([32mdata[37m => {
+         ╵                                                             [32m~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'setGaragemUsuarioLogado' does not exist on type 'UsuarioService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:74:29:
+[37m      74 │                 this.usuario.[32msetGaragemUsuarioLogado[37m(data.dados);
+         ╵                              [32m~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS7006: Parameter 'error' implicitly has an 'any' type.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:77:19:
+[37m      77 │             error: [32merror[37m => { console.log('Error ' + error)},
+         ╵                    [32m~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'storage' does not exist on type 'LoginComponent'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:96:9:
+[37m      96 │     this.[32mstorage[37m.setState("isLoading", false);
+         ╵          [32m~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isAuthenticated' does not exist on type 'AuthService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/core/auth.guard.ts:9:18:
+[37m      9 │   if (authService.[32misAuthenticated[37m()) {
+        ╵                   [32m~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'getToken' does not exist on type 'AuthService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/core/auth.interceptor.ts:6:36:
+[37m      6 │   const token = inject(AuthService).[32mgetToken[37m();
+        ╵                                     [32m~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'isAuthenticated' does not exist on type 'AuthService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/core/auth.guard.ts:9:18:
+[37m      9 │   if (authService.[32misAuthenticated[37m()) {
+        ╵                   [32m~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'getToken' does not exist on type 'AuthService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/core/auth.interceptor.ts:6:36:
+[37m      6 │   const token = inject(AuthService).[32mgetToken[37m();
+        ╵                                     [32m~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8003: No directive found with exportAs 'ngForm'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:7:6:
+[37m      7 │   #f="[32mngForm[37m"
+        ╵       [32m~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:14:6:
+[37m      14 │       [32m[(ngModel)] ="loginForm.login"[37m
+         ╵       [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG9: Property 'login' does not exist on type 'FormGroup<ɵNullableFormControls<{ login: (string | ((control: AbstractControl<any, any>) => ValidationErrors | null))[]; password: (string | ((control: AbstractControl<any, any>) => ValidationErrors | null))[]; }>>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:14:30:
+[37m      14 │       [(ngModel)] ="loginForm.[32mlogin[37m"
+         ╵                               [32m~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG9: Property 'login' does not exist on type 'FormGroup<ɵNullableFormControls<{ login: (string | ((control: AbstractControl<any, any>) => ValidationErrors | null))[]; password: (string | ((control: AbstractControl<any, any>) => ValidationErrors | null))[]; }>>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:14:30:
+[37m      14 │       [(ngModel)] ="loginForm.[32mlogin[37m"
+         ╵                               [32m~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8003: No directive found with exportAs 'ngModel'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:16:14:
+[37m      16 │       #login="[32mngModel[37m"
+         ╵               [32m~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:29:7:
+[37m      29 │        [32m[(ngModel)]="loginForm.password"[37m
+         ╵        [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG9: Property 'password' does not exist on type 'FormGroup<ɵNullableFormControls<{ login: (string | ((control: AbstractControl<any, any>) => ValidationErrors | null))[]; password: (string | ((control: AbstractControl<any, any>) => ValidationErrors | null))[]; }>>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:29:30:
+[37m      29 │        [(ngModel)]="loginForm.[32mpassword[37m"
+         ╵                               [32m~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG9: Property 'password' does not exist on type 'FormGroup<ɵNullableFormControls<{ login: (string | ((control: AbstractControl<any, any>) => ValidationErrors | null))[]; password: (string | ((control: AbstractControl<any, any>) => ValidationErrors | null))[]; }>>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:29:30:
+[37m      29 │        [(ngModel)]="loginForm.[32mpassword[37m"
+         ╵                               [32m~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG8003: No directive found with exportAs 'ngModel'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:31:18:
+[37m      31 │        #password="[32mngModel[37m"
+         ╵                   [32m~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2729: Property 'fb' is used before its initialization.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:21:19:
+[37m      21 │   loginForm = this.[32mfb[37m.group({
+         ╵                    [32m~~[0m
+
+  'fb' is declared here.
+
+    src/app/pages/login/login.component.ts:34:4:
+[37m      34 │     [32mprivate fb: FormBuilder[37m,
+         ╵     [32m~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2729: Property 'fb' is used before its initialization.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.ts:21:19:
+[37m      21 │   loginForm = this.[32mfb[37m.group({
+         ╵                    [32m~~[0m
+
+  'fb' is declared here.
+
+    src/app/pages/login/login.component.ts:34:4:
+[37m      34 │     [32mprivate fb: FormBuilder[37m,
+         ╵     [32m~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'login' comes from an index signature, so it must be accessed with ['login'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:12:51:
+[37m      12 │ ...invalid': loginForm.controls.[32mlogin[37m.touched && loginForm.control...
+         ╵                                 [32m~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'login' comes from an index signature, so it must be accessed with ['login'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:12:87:
+[37m      12 │ ...inForm.controls.login.touched && loginForm.controls.[32mlogin[37m.errors}"
+         ╵                                                        [32m~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'login' comes from an index signature, so it must be accessed with ['login'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:15:30:
+[37m      15 │       @if (loginForm.controls.[32mlogin[37m.errors && loginForm.controls.l...
+         ╵                               [32m~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'login' comes from an index signature, so it must be accessed with ['login'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:15:65:
+[37m      15 │ ...inForm.controls.login.errors && loginForm.controls.[32mlogin[37m.touched){
+         ╵                                                       [32m~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'password' comes from an index signature, so it must be accessed with ['password'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:24:51:
+[37m      24 │ ...nvalid': loginForm.controls.[32mpassword[37m.touched && loginForm.contr...
+         ╵                                [32m~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'password' comes from an index signature, so it must be accessed with ['password'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:24:90:
+[37m      24 │ ....controls.password.touched && loginForm.controls.[32mpassword[37m.errors}"
+         ╵                                                     [32m~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'password' comes from an index signature, so it must be accessed with ['password'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:27:31:
+[37m      27 │        @if (loginForm.controls.[32mpassword[37m.errors && loginForm.contro...
+         ╵                                [32m~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'password' comes from an index signature, so it must be accessed with ['password'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:27:69:
+[37m      27 │ ...controls.password.errors && loginForm.controls.[32mpassword[37m.touched) {
+         ╵                                                   [32m~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'password' comes from an index signature, so it must be accessed with ['password'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:29:34:
+[37m      29 │           @if (loginForm.controls.[32mpassword[37m.errors['required']) {
+         ╵                                   [32m~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'login' comes from an index signature, so it must be accessed with ['login'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:12:51:
+[37m      12 │ ...invalid': loginForm.controls.[32mlogin[37m.touched && loginForm.control...
+         ╵                                 [32m~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'login' comes from an index signature, so it must be accessed with ['login'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:12:87:
+[37m      12 │ ...inForm.controls.login.touched && loginForm.controls.[32mlogin[37m.errors}"
+         ╵                                                        [32m~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'login' comes from an index signature, so it must be accessed with ['login'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:15:30:
+[37m      15 │       @if (loginForm.controls.[32mlogin[37m.errors && loginForm.controls.l...
+         ╵                               [32m~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'login' comes from an index signature, so it must be accessed with ['login'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:15:65:
+[37m      15 │ ...inForm.controls.login.errors && loginForm.controls.[32mlogin[37m.touched){
+         ╵                                                       [32m~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'password' comes from an index signature, so it must be accessed with ['password'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:24:51:
+[37m      24 │ ...nvalid': loginForm.controls.[32mpassword[37m.touched && loginForm.contr...
+         ╵                                [32m~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'password' comes from an index signature, so it must be accessed with ['password'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:24:90:
+[37m      24 │ ....controls.password.touched && loginForm.controls.[32mpassword[37m.errors}"
+         ╵                                                     [32m~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'password' comes from an index signature, so it must be accessed with ['password'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:27:31:
+[37m      27 │        @if (loginForm.controls.[32mpassword[37m.errors && loginForm.contro...
+         ╵                                [32m~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'password' comes from an index signature, so it must be accessed with ['password'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:27:69:
+[37m      27 │ ...controls.password.errors && loginForm.controls.[32mpassword[37m.touched) {
+         ╵                                                   [32m~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1: Property 'password' comes from an index signature, so it must be accessed with ['password'].[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/login/login.component.html:29:34:
+[37m      29 │           @if (loginForm.controls.[32mpassword[37m.errors['required']) {
+         ╵                                   [32m~~~~~~~~[0m
+
+  Error occurs in the template of component LoginComponent.
+
+    src/app/pages/login/login.component.ts:15:15:
+[37m      15 │   templateUrl: [32m'./login.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
