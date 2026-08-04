@@ -16,34 +16,25 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <label>
         CNPJ/CPF
-        <input
-          type="text"
-          formControlName="login"
-          [ngClass]="{'is-invalid': login.touched && login.errors}"
-          placeholder="Informe seu usuario"
-          autocomplete="username"
-        />
+        <input type="text" formControlName="login" [ngClass]="{'is-invalid': login.touched && login.errors}"
+          placeholder="Informe seu usuario" autocomplete="username" />
         @if (login.errors && login.touched) {
-          <span class="field-error">Informe o CNPJ/CPF.</span>
+        <span class="field-error">Informe o CNPJ/CPF.</span>
         }
       </label>
 
       <label>
         Senha
-        <input
-          type="password"
-          formControlName="password"
-          [ngClass]="{'is-invalid': password.touched && password.errors}"
-          placeholder="Digite sua senha"
-          autocomplete="current-password"
-        />
+        <input type="password" formControlName="password"
+          [ngClass]="{'is-invalid': password.touched && password.errors}" placeholder="Digite sua senha"
+          autocomplete="current-password" />
         @if (password.errors && password.touched) {
-          <span class="field-error">Digite sua senha.</span>
+        <span class="field-error">Digite sua senha.</span>
         }
       </label>
 
       @if (isLoginFailed) {
-        <div class="login-error">{{ errorMessage }}</div>
+      <div class="login-error">{{ errorMessage }}</div>
       }
 
       <button type="submit">Entrar</button>

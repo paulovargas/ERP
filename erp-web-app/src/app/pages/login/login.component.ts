@@ -28,12 +28,12 @@ export class LoginComponent {
   returnUrl: string = "";
 
   constructor(
-    private fb: FormBuilder,
-    private notification: NotificationService,
-    private router: Router,
-    private usuario: UsuarioService,
-    private authService: AuthService, // private alertService: AlertService
-    private storage: StorageService
+    private readonly fb: FormBuilder,
+    private readonly notification: NotificationService,
+    private readonly router: Router,
+    private readonly usuario: UsuarioService,
+    private readonly authService: AuthService, 
+    private readonly storage: StorageService
   ) {
     this.loginForm = this.fb.group({
       login: ['', Validators.required],
@@ -43,12 +43,6 @@ export class LoginComponent {
 
   ngOnInit() : void {
     this.authService.clearSession();
-
-    //this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/inicio';
-  }
-
-  ngOnChanges() {
-    //this.authService.logout();
   }
 
   get login() {
@@ -60,8 +54,6 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-
-    //this.storage.setState("isLoading", true);
 
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
@@ -76,7 +68,9 @@ export class LoginComponent {
 
       this.authService.login(login.trim(), password).subscribe({
         next: response => {
-          this.storage.setToken(response.token)
+          this.authService.AccessToken = response.dados.token;
+          this.authService.logado = true;
+          this.storage.setToken(response.dados.token);
           this.router.navigate(['/dashboard']);
           /* this.usuario.consultaDadosUsuario(login).subscribe({
             next: usuario => {
@@ -93,20 +87,14 @@ export class LoginComponent {
 
         },
         error: err => {
-          //this.notificationService.notify('Erro ao logar, tente novamente.');
           this.errorMessage = err.error?.message || 'Usuario ou senha invalidos.';
           this.isLoginFailed = true;
-          //this.notificationService.notify('Erro ao logar, tente novamente.');
         },
         complete: () => {
-          //this.usuario.consultaDadosUsuario().subscribe((usuario) => ( console.log("login - usuario : " , usuario)));
-        //  this.storage.setState("isLoading", false);
-
         }
       })
     }
     else {
-    //this.storage.setState("isLoading", false);
       this.notification.notify("Acesso não autorizado !");
     }
   }

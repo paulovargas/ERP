@@ -12,9 +12,9 @@ import { ERP_API } from '../../../environments/environment.development';
 export class UsuarioService {
 
 constructor(
-    private auth: AuthService,
-    private storage: StorageService,
-    private http: HttpClient
+    private readonly auth: AuthService,
+    private readonly storage: StorageService,
+    private readonly http: HttpClient
   ) { }
 
   consultaDadosUsuario(login: string): Observable<Usuario> {

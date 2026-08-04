@@ -1,5 +1,6 @@
 package com.paulovargas.erpapi.controllers;
 
+import com.paulovargas.erpapi.dtos.ApiResponse;
 import com.paulovargas.erpapi.dtos.AuthResponse;
 import com.paulovargas.erpapi.dtos.LoginRequest;
 import com.paulovargas.erpapi.security.JwtService;
@@ -27,12 +28,19 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<ApiResponse<AuthResponse>> login(@RequestBody LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
 
         String token = jwtService.generateToken((UserDetails) authentication.getPrincipal());
-        return ResponseEntity.ok(new AuthResponse(token));
+        AuthResponse authResponse = new AuthResponse(token);
+        ApiResponse<AuthResponse> response = new ApiResponse<>(
+                authResponse,
+                "Login realizado com sucesso",
+                true
+        );
+
+        return ResponseEntity.ok(response);
     }
 }
