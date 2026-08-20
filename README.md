@@ -2,6 +2,10 @@
 
 Aplicacao full stack de ERP criada para demonstrar conhecimentos em backend Java, frontend Angular, persistencia relacional, APIs REST e deploy em servidor de aplicacoes.
 
+# DEMO
+
+https://paulovargas.github.io/ERP
+
 ## Modulos
 
 - `erp-api`: API REST em Java com Spring Boot, Spring Data JPA, PostgreSQL, Swagger/OpenAPI e empacotamento WAR para WildFly.
