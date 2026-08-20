@@ -1,0 +1,63 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: erp-web-app/package-lock.json
+
+      - name: Install dependencies
+        working-directory: erp-web-app
+        run: npm ci
+
+      - name: Configure production API URL
+        working-directory: erp-web-app
+        env:
+          ERP_API_URL: ${{ secrets.ERP_API_URL }}
+        run: |
+          if [ -n "$ERP_API_URL" ]; then
+            printf 'export const ERP_API = "%s";\n' "$ERP_API_URL" > src/environments/environment.ts
+          fi
+
+      - name: Build Angular app
+        working-directory: erp-web-app
+        run: npm run build:github-pages
+
+      - name: Add SPA fallback
+        run: cp erp-web-app/dist/erp-web-app/browser/index.html erp-web-app/dist/erp-web-app/browser/404.html
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: erp-web-app/dist/erp-web-app/browser
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
