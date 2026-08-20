@@ -99,7 +99,7 @@ A aplicacao Angular ficara disponivel em:
 http://localhost:4200
 ```
 
-## Deploy do frontend no GitHub Pages
+## Deploy do frontend no GitHub Pages pela pasta docs
 
 Este deploy publica apenas o frontend Angular. A API Spring Boot (`erp-api`) precisa continuar hospedada em um servidor separado e acessivel pela aplicacao web.
 
@@ -116,10 +116,12 @@ cd erp-web-app
 npm run build:github-pages
 ```
 
-No GitHub, ative o GitHub Pages em:
+Esse comando gera a pasta `docs` na raiz do repositorio. No GitHub, configure o Pages em:
 
 ```text
-Settings > Pages > Build and deployment > Source > GitHub Actions
+Settings > Pages > Build and deployment > Source > Deploy from a branch
+Branch: main
+Folder: /docs
 ```
 
 Se a API estiver hospedada fora do ambiente local, configure tambem o secret abaixo no repositorio:
@@ -130,9 +132,18 @@ Name: ERP_API_URL
 Value: https://seu-dominio-da-api/erp-api
 ```
 
-Sem esse secret, o build continuara usando `http://127.0.0.1:8080/erp-api`, o que serve para testes locais, mas nao para usuarios acessando pelo GitHub Pages.
+Sem ajustar a URL da API, o build continuara usando `http://127.0.0.1:8080/erp-api`, o que serve para testes locais, mas nao para usuarios acessando pelo GitHub Pages.
 
-Depois faca push para a branch `main`. O workflow `.github/workflows/deploy-pages.yml` vai instalar as dependencias, gerar o build em `erp-web-app/dist/erp-web-app/browser` e publicar o site.
+Depois gere a pasta `docs`, faca commit e envie para a branch `main`:
+
+```bash
+cd erp-web-app
+npm run build:github-pages
+cd ..
+git add docs erp-web-app/package.json erp-web-app/scripts/prepare-github-pages.mjs README.md
+git commit -m "Build frontend for GitHub Pages docs"
+git push origin main
+```
 
 ## Documentacao da API
 
