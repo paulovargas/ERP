@@ -74,17 +74,17 @@ spring.jpa.show-sql=true
 
 ## Autenticacao JWT
 
-A API usa autenticacao stateless com JWT. O endpoint publico de login e:
+A API usa autenticacao stateless com JWT. O endpoint publico usado pelo frontend atual e:
 
 ```text
-POST /erp-api/auth/login
+POST /erp-api/api/auth/login
 ```
 
 Corpo da requisicao:
 
 ```json
 {
-  "username": "admin",
+  "email": "admin@admin.com",
   "password": "sua_senha"
 }
 ```
@@ -94,7 +94,12 @@ Resposta:
 ```json
 {
   "token": "jwt_gerado",
-  "tokenType": "Bearer"
+  "tokenType": "Bearer",
+  "expiresIn": 86400000,
+  "clientId": 1,
+  "name": "Administrador",
+  "email": "admin@admin.com",
+  "userType": "ADMIN"
 }
 ```
 
@@ -106,14 +111,22 @@ Authorization: Bearer jwt_gerado
 
 Por ser um projeto didatico, a chave de assinatura do JWT esta fixa no codigo em `JwtService`.
 
-Para criar automaticamente um usuario inicial no primeiro boot, defina tambem:
+Por padrao, a API cria automaticamente este administrador no primeiro boot:
 
-```cmd
-set ERP_INITIAL_USER=admin
-set ERP_INITIAL_PASSWORD=sua_senha
+```text
+E-mail: admin@admin.com
+Senha: gerada no log do servidor
 ```
 
-Se `ERP_INITIAL_USER` ja existir no banco, a aplicacao nao altera a senha desse usuario.
+Para definir uma senha fixa no seu ambiente, use:
+
+```cmd
+set DEFAULT_ADMIN_PASSWORD=sua_senha
+```
+
+Se voce ja usava `ERP_INITIAL_PASSWORD`, ela tambem sera aceita como fallback para a senha desse administrador. Se nenhuma senha for definida, a API gera uma senha temporaria e imprime no log do servidor quando criar o usuario.
+
+Opcionalmente, defina `DEFAULT_ADMIN_EMAIL`, `DEFAULT_ADMIN_NAME`, `DEFAULT_ADMIN_DOCUMENT` e `DEFAULT_ADMIN_PHONE`. Se o e-mail ja existir no banco, a aplicacao nao altera a senha desse usuario.
 
 ## Documentacao da API
 

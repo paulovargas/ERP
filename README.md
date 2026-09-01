@@ -136,7 +136,41 @@ Name: ERP_API_URL
 Value: https://seu-dominio-da-api/erp-api
 ```
 
-Sem ajustar a URL da API, o build continuara usando `http://127.0.0.1:8080/erp-api`, o que serve para testes locais, mas nao para usuarios acessando pelo GitHub Pages.
+Sem ajustar a URL da API, o build continuara usando `http://localhost:8080/erp-api/api`, o que serve para testes locais, mas nao para usuarios acessando pelo GitHub Pages.
+
+## Login local
+
+O frontend atual autentica em:
+
+```text
+POST http://localhost:8080/erp-api/api/auth/login
+```
+
+Corpo da requisicao:
+
+```json
+{
+  "email": "admin@admin.com",
+  "password": "sua_senha"
+}
+```
+
+Por padrao, a API cria automaticamente este administrador no primeiro boot:
+
+```text
+E-mail: admin@admin.com
+Senha: gerada no log do servidor
+```
+
+Para trocar a senha padrao sem alterar o codigo, defina:
+
+```cmd
+set DEFAULT_ADMIN_PASSWORD=sua_senha
+```
+
+Se voce ja usava `ERP_INITIAL_PASSWORD`, ela tambem sera aceita como fallback para a senha desse administrador. Se nenhuma senha for definida, a API gera uma senha temporaria e imprime no log do servidor quando criar o usuario.
+
+Opcionalmente, tambem podem ser definidos `DEFAULT_ADMIN_EMAIL`, `DEFAULT_ADMIN_NAME`, `DEFAULT_ADMIN_DOCUMENT` e `DEFAULT_ADMIN_PHONE`. Se o e-mail ja existir no banco, a aplicacao nao altera a senha desse usuario.
 
 Depois gere a pasta `docs`, faca commit e envie para a branch `main`:
 
