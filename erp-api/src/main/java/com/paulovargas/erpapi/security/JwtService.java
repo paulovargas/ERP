@@ -1,99 +1,80 @@
 package com.paulovargas.erpapi.security;
 
+import com.paulovargas.erpapi.entity.Client;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.DecodingException;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.WeakKeyException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private static final String TOKEN_SECRET = "ZXJwLWFwaS1qd3QtZGlkYXRpYy1zZWNyZXQta2V5LTMyLWJ5dGVz";
-
-    private final String secret;
+    private final SecretKey secretKey;
     private final long expirationMillis;
 
     public JwtService(
-            @Value("${app.security.jwt.expiration-millis:86400000}") long expirationMillis
+            @Value("${app.jwt.secret:}") String secret,
+            @Value("${app.jwt.expiration-millis:86400000}") long expirationMillis
     ) {
-        validateSecret(TOKEN_SECRET);
-        this.secret = TOKEN_SECRET;
+        if (!StringUtils.hasText(secret) || secret.getBytes(StandardCharsets.UTF_8).length < 32) {
+            throw new IllegalStateException("Configure app.jwt.secret with at least 32 characters.");
+        }
+
+        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.expirationMillis = expirationMillis;
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
-    }
-
-    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+    public String generateToken(Client client) {
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + expirationMillis);
+        Date expiresAt = new Date(now.getTime() + expirationMillis);
 
         return Jwts.builder()
-                .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername())
+                .setSubject(client.getEmail())
+                .claim("clientId", client.getId())
+                .claim("userType", client.getUserType().name())
                 .setIssuedAt(now)
-                .setExpiration(expiration)
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .setExpiration(expiresAt)
+                .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+    public String generateToken(UserDetails userDetails) {
+        Date now = new Date();
+        Date expiresAt = new Date(now.getTime() + expirationMillis);
+
+        return Jwts.builder()
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(now)
+                .setExpiration(expiresAt)
+                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .compact();
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails) {
-        String username = extractUsername(token);
-        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+    public String extractSubject(String token) {
+        return parseClaims(token).getSubject();
     }
 
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+    public boolean isTokenValid(String token, String username) {
+        Claims claims = parseClaims(token);
+        return username.equals(claims.getSubject()) && claims.getExpiration().after(new Date());
     }
 
-    private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
+    public long getExpirationMillis() {
+        return expirationMillis;
     }
 
-    private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
+    private Claims parseClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-
-        return claimsResolver.apply(claims);
-    }
-
-    private Key getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secret);
-        return Keys.hmacShaKeyFor(keyBytes);
-    }
-
-    private void validateSecret(String secret) {
-        if (secret == null || secret.isBlank()) {
-            throw new IllegalStateException(
-                    "JWT token secret must be configured"
-            );
-        }
-
-        try {
-            Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
-        } catch (DecodingException exception) {
-            throw new IllegalStateException("JWT token secret must be a valid Base64 value", exception);
-        } catch (WeakKeyException exception) {
-            throw new IllegalStateException("JWT token secret must decode to at least 32 bytes", exception);
-        }
     }
 }
