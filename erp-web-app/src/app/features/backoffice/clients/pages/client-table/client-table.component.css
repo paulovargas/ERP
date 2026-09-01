@@ -1,0 +1,46 @@
+.client-table {
+  padding: 24px;
+  overflow-x: auto;
+}
+
+.client-table__header {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.client-table__header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.client-table__header button {
+  flex: 0 0 auto;
+}
+
+table {
+  min-width: 960px;
+  width: 100%;
+}
+
+.client-table__actions {
+  display: flex;
+  gap: 4px;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: min(100%, 520px);
+}
+
+.state-message {
+  color: #4b5563;
+  margin: 16px 0 0;
+}
+
+.state-message--error {
+  color: #b91c1c;
+}

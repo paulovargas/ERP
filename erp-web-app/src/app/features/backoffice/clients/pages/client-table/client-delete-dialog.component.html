@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Excluir cliente</h2>
+
+<mat-dialog-content class="delete-dialog">
+  <div class="delete-dialog__icon">
+    <mat-icon>warning</mat-icon>
+  </div>
+  <div>
+    <p>Confirma a exclusao de <strong>{{ client.name }}</strong>?</p>
+    <span>Esta acao nao pode ser desfeita.</span>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="close()">Cancelar</button>
+  <button mat-raised-button color="warn" type="button" (click)="confirm()">
+    <mat-icon>delete</mat-icon>
+    Excluir
+  </button>
+</mat-dialog-actions>

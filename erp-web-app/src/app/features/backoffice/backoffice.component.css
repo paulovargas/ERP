@@ -1,0 +1,23 @@
+.navigation {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: 10vh;
+    border: 2px solid greenyellow;
+}
+
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: 80vh;
+    border: 2px solid plum;
+}
+
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: 10vh;
+    border: 2px solid black;
+}

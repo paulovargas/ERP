@@ -1,11 +1,39 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/auth.guard';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { LoginComponent } from './pages/login/login.component';
+
+import { authGuard } from './core/guards/auth.guard';
+import { LoginComponent } from './features/auth/pages/login/login.component';
+import { BackofficeComponent } from './features/backoffice/backoffice.component';
+import { ClientTableComponent } from './features/backoffice/clients/pages/client-table/client-table.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
-  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-  { path: '**', redirectTo: 'dashboard' }
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'backoffice',
+    component: BackofficeComponent,
+    canActivate: [authGuard],
+    children: [
+      {
+      path: 'clientes',
+      component: ClientTableComponent,
+      outlet: 'main',
+    },
+      {
+      path: 'usuarios',
+      component: ClientTableComponent,
+      outlet: 'main',
+    },
+    ]
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'login'
+  },
+  {
+    path: '**',
+    redirectTo: 'login'
+  }
 ];

@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="client-form">
+  <mat-dialog-content class="client-form__content">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" autocomplete="name">
+      <mat-error *ngIf="hasError('name', 'required')">Informe o nome.</mat-error>
+      <mat-error *ngIf="hasError('name', 'maxlength')">Use ate 120 caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nome fantasia</mat-label>
+      <input matInput formControlName="tradeName">
+      <mat-error *ngIf="hasError('tradeName', 'maxlength')">Use ate 120 caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" autocomplete="email">
+      <mat-error *ngIf="hasError('email', 'required')">Informe o email.</mat-error>
+      <mat-error *ngIf="hasError('email', 'email')">Informe um email valido.</mat-error>
+      <mat-error *ngIf="hasError('email', 'maxlength')">Use ate 160 caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ passwordLabel }}</mat-label>
+      <input matInput type="password" formControlName="password" autocomplete="new-password">
+      <mat-hint>{{ passwordHint }}</mat-hint>
+      <mat-error *ngIf="hasError('password', 'required')">Informe a senha.</mat-error>
+      <mat-error *ngIf="hasError('password', 'minlength')">Use pelo menos 8 caracteres.</mat-error>
+      <mat-error *ngIf="hasError('password', 'maxlength')">Use ate 72 caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Documento</mat-label>
+      <input matInput formControlName="document">
+      <mat-error *ngIf="hasError('document', 'required')">Informe o CPF ou CNPJ.</mat-error>
+      <mat-error *ngIf="hasError('document', 'pattern')">Use CPF ou CNPJ valido.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Telefone</mat-label>
+      <input matInput formControlName="phone" autocomplete="tel">
+      <mat-error *ngIf="hasError('phone', 'pattern')">Use entre 10 e 20 caracteres validos.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Perfil</mat-label>
+      <mat-select formControlName="userType">
+        <mat-option *ngFor="let userType of userTypes" [value]="userType.value">{{ userType.label }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" *ngIf="isEdit">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let status of statuses" [value]="status.value">{{ status.label }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <label class="client-form__checkbox" *ngIf="isEdit">
+      <input type="checkbox" formControlName="sellerApproved">
+      Vendedor aprovado
+    </label>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="close()">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit">
+      <mat-icon>{{ isEdit ? 'save' : 'add' }}</mat-icon>
+      {{ submitLabel() }}
+    </button>
+  </mat-dialog-actions>
+</form>

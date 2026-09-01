@@ -1,0 +1,30 @@
+.delete-dialog {
+  align-items: flex-start;
+  display: flex;
+  gap: 14px;
+  max-width: 440px;
+}
+
+.delete-dialog__icon {
+  align-items: center;
+  background: #fee2e2;
+  border-radius: 50%;
+  color: #b91c1c;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+
+.delete-dialog p {
+  margin: 0 0 4px;
+}
+
+.delete-dialog span {
+  color: #4b5563;
+}
+
+mat-dialog-actions {
+  gap: 8px;
+}

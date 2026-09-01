@@ -1,0 +1,30 @@
+<header>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="z-index: 2;">
+    <div class="container-fluid">
+      <a class="navbar-brand">TMS</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav" style="background-color: transparent;">
+          <li class="nav-item dropdown" *ngFor="let menu of listaMenus; let r = index">
+            <a *ngIf="menu.endereco == null" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ menu.nome }} <!-- - {{ r }} -->
+            </a>
+            <ul class="dropdown-menu" style="z-index: 1050;">
+              <li *ngFor="let submenu of listaMenus; let i = index">
+                <button *ngIf="menu.posicao === 0 && submenu.raiz === 1" class="dropdown-item" (click)="abreModal(transformaEmRota(submenu.nome))">{{ submenu.nome }} <!-- - {{r}} --></button> <!-- COLUNAS SISTEMA -->
+                <button *ngIf="menu.posicao === 1 && submenu.raiz === 3" class="dropdown-item" (click)="abreModal(transformaEmRota(submenu.nome))">{{ submenu.nome }}  <!-- - {{r}} --></button> <!-- COLUNA CADASTROS -->
+                <button *ngIf="menu.posicao === 2 && submenu.raiz === 7" class="dropdown-item" (click)="abreModal(transformaEmRota(submenu.nome))">{{ submenu.nome }}  <!-- - {{r}} --></button> <!--  COLUNA MOVIMENTO -->
+                <button *ngIf="menu.posicao === 3 && submenu.raiz === 16" class="dropdown-item" (click)="abreModal(transformaEmRota(submenu.nome))">{{ submenu.nome }} <!-- - {{r}} --></button> <!-- COLUNA RELATÓRIOS -->
+                <button *ngIf="menu.posicao === 4 && submenu.raiz === 13" class="dropdown-item" (click)="abreModal(transformaEmRota(submenu.nome))">{{ submenu.nome }} <!-- - {{r}} --></button> <!-- COLUNA INTEGRAÇÃO -->
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <modal-content></modal-content>
+</header>

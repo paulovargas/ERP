@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="z-index: 2;">
+  <div class="container-fluid">
+    <a class="navbar-brand">TMS</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav" style="background-color: transparent;">
+        <li class="nav-item dropdown" *ngFor="let menu of menusRaiz(); let r = index">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ menu.nome }}
+          </a>
+          <ul class="dropdown-menu" style="z-index: 1050;">
+            <li *ngFor="let submenu of submenus(menu); let i = index">
+              <button class="dropdown-item" (click)="abreModal(submenu.endereco)">
+                {{ submenu.nome }}
+              </button>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -10,7 +10,7 @@
 
     <nav aria-label="Modulos do ERP">
       @for (item of navigation; track item) {
-        <a href="#">{{ item }}</a>
+        <a [routerLink]="item.route">{{ item.label }}</a>
       }
     </nav>
   </aside>

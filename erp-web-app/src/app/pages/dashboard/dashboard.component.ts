@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -12,7 +12,13 @@ export class DashboardComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  protected readonly navigation = ['Dashboard', 'Pessoas', 'Contas', 'Lancamentos', 'Extratos'];
+  protected readonly navigation = [
+    { label: 'Dashboard', route: '/dashboard' },
+    { label: 'Clientes', route: '/clientes' },
+    { label: 'Contas', route: '/dashboard' },
+    { label: 'Lancamentos', route: '/dashboard' },
+    { label: 'Extratos', route: '/dashboard' }
+  ];
 
   protected readonly metrics = [
     { label: 'Entidades', value: '7', detail: 'dominio financeiro' },

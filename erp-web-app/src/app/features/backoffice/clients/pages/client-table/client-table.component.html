@@ -1,0 +1,79 @@
+<section class="client-table">
+  <header class="client-table__header">
+    <h1>Clientes</h1>
+    <button mat-raised-button color="primary" type="button" (click)="openCreateDialog()" [disabled]="isSaving">
+      <mat-icon>add</mat-icon>
+      Adicionar
+    </button>
+  </header>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Filtrar clientes</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Nome, email, documento ou status" #input>
+  </mat-form-field>
+
+  <p *ngIf="isLoading" class="state-message">Carregando clientes...</p>
+  <p *ngIf="isSaving && !isLoading" class="state-message">Processando operacao...</p>
+  <p *ngIf="!isLoading && errorMessage" class="state-message state-message--error">{{ errorMessage }}</p>
+  <p *ngIf="!isLoading && !errorMessage && dataSource.data.length === 0" class="state-message">
+    {{ emptyMessage }}
+  </p>
+
+  <table mat-table [dataSource]="dataSource" class="mat-shadow-2" *ngIf="!isLoading && !errorMessage && dataSource.data.length > 0">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Codigo</th>
+      <td mat-cell *matCellDef="let client">{{ client.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
+      <td mat-cell *matCellDef="let client">{{ client.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let client">{{ client.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="document">
+      <th mat-header-cell *matHeaderCellDef>Documento</th>
+      <td mat-cell *matCellDef="let client">{{ client.document }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>Telefone</th>
+      <td mat-cell *matCellDef="let client">{{ client.phone || '-' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="userType">
+      <th mat-header-cell *matHeaderCellDef>Perfil</th>
+      <td mat-cell *matCellDef="let client">{{ userTypeLabel(client.userType) }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let client">{{ statusLabel(client.status) }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Acoes</th>
+      <td mat-cell *matCellDef="let client" class="client-table__actions">
+        <button mat-icon-button type="button" aria-label="Editar cliente" (click)="openEditDialog(client)" [disabled]="isSaving">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button type="button" aria-label="Excluir cliente" (click)="openDeleteDialog(client)" [disabled]="isSaving">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+        {{ input.value ? 'Nenhum cliente encontrado para "' + input.value + '".' : emptyMessage }}
+      </td>
+    </tr>
+  </table>
+</section>
