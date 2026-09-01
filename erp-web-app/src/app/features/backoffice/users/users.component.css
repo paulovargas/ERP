@@ -1,0 +1,90 @@
+.users {
+  padding: 24px;
+  overflow-x: auto;
+}
+
+.users__header {
+  align-items: flex-start;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.users__header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.users__header p {
+  color: #64748b;
+  font-size: 14px;
+  margin: 4px 0 0;
+}
+
+.users__header button {
+  flex: 0 0 auto;
+}
+
+table {
+  min-width: 1080px;
+  width: 100%;
+}
+
+td strong,
+td span {
+  display: block;
+}
+
+td span {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.users__actions {
+  display: flex;
+  gap: 4px;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: min(100%, 520px);
+}
+
+.status-pill {
+  background: #dcfce7;
+  border-radius: 999px;
+  color: #166534;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 6px 10px;
+  width: fit-content;
+}
+
+.status-pill--inactive {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.state-message {
+  color: #4b5563;
+  margin: 16px 0 0;
+}
+
+.state-message--error {
+  color: #b91c1c;
+}
+
+@media (max-width: 720px) {
+  .users {
+    padding: 16px;
+  }
+
+  .users__header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

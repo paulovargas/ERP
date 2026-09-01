@@ -1,24 +1,40 @@
-import { Injectable } from '@angular/core';
-import { StorageService } from './storage.service';
 import { HttpClient } from '@angular/common/http';
-import { Usuario } from '../models/Usuario';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth.service';
-import { ERP_API } from '../../../environments/environment.development';
+
+import { environment } from '../../../environments/environment';
+import { ClientCreateRequest, ClientResponse, ClientUpdateRequest, UserStatus, UserType } from '../models/client.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
+  private readonly http = inject(HttpClient);
+  private readonly baseUrl = environment.apiUrl;
 
-constructor(
-    private readonly auth: AuthService,
-    private readonly storage: StorageService,
-    private readonly http: HttpClient
-  ) { }
+  findAll(filters: { status?: UserStatus; userType?: UserType } = {}): Observable<ClientResponse[]> {
+    return this.http.get<ClientResponse[]>(`${this.baseUrl}/users`, { params: this.cleanParams(filters) });
+  }
 
-  consultaDadosUsuario(login: string): Observable<Usuario> {
-    const headers = this.auth.headers();
-    return this.http.get<Usuario>(ERP_API + `/usuario/${login}` , { headers });
+  create(request: ClientCreateRequest): Observable<ClientResponse> {
+    return this.http.post<ClientResponse>(`${this.baseUrl}/users`, request);
+  }
+
+  update(id: number, request: ClientUpdateRequest): Observable<ClientResponse> {
+    return this.http.put<ClientResponse>(`${this.baseUrl}/users/${id}`, request);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/users/${id}`);
+  }
+
+  private cleanParams(filters: { status?: UserStatus; userType?: UserType }): Record<string, string> {
+    return Object.entries(filters).reduce<Record<string, string>>((params, [key, value]) => {
+      if (value) {
+        params[key] = value;
+      }
+
+      return params;
+    }, {});
   }
 }

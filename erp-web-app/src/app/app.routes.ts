@@ -4,6 +4,7 @@ import { authGuard } from './core/guards/auth.guard';
 import { LoginComponent } from './features/auth/pages/login/login.component';
 import { BackofficeComponent } from './features/backoffice/backoffice.component';
 import { ClientTableComponent } from './features/backoffice/clients/pages/client-table/client-table.component';
+import { UsersComponent } from './features/backoffice/users/users.component';
 
 export const routes: Routes = [
   {
@@ -22,7 +23,7 @@ export const routes: Routes = [
     },
       {
       path: 'usuarios',
-      component: ClientTableComponent,
+      component: UsersComponent,
       outlet: 'main',
     },
     ]

@@ -1,3 +1,89 @@
-<p>
-  users works!
-</p>
+<section class="users">
+  <header class="users__header">
+    <div>
+      <h1>Usuarios</h1>
+      <p>Gerencie acessos, perfis e status dos usuarios do ERP.</p>
+    </div>
+    <button mat-raised-button color="primary" type="button" (click)="openCreateDialog()" [disabled]="isSaving">
+      <mat-icon>person_add</mat-icon>
+      Adicionar
+    </button>
+  </header>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Filtrar usuarios</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Nome, email, perfil ou status" #input>
+  </mat-form-field>
+
+  <p *ngIf="isLoading" class="state-message">Carregando usuarios...</p>
+  <p *ngIf="isSaving && !isLoading" class="state-message">Processando operacao...</p>
+  <p *ngIf="!isLoading && errorMessage" class="state-message state-message--error">{{ errorMessage }}</p>
+  <p *ngIf="!isLoading && !errorMessage && dataSource.data.length === 0" class="state-message">
+    {{ emptyMessage }}
+  </p>
+
+  <table mat-table [dataSource]="dataSource" class="mat-shadow-2" *ngIf="!isLoading && !errorMessage && dataSource.data.length > 0">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Codigo</th>
+      <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
+      <td mat-cell *matCellDef="let user">
+        <strong>{{ user.name }}</strong>
+        <span>{{ user.tradeName || user.document }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="userType">
+      <th mat-header-cell *matHeaderCellDef>Perfil</th>
+      <td mat-cell *matCellDef="let user">{{ userTypeLabel(user.userType) }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let user">
+        <span class="status-pill" [class.status-pill--inactive]="user.status !== 'ACTIVE'">
+          {{ statusLabel(user.status) }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="sellerApproved">
+      <th mat-header-cell *matHeaderCellDef>Aprovacao</th>
+      <td mat-cell *matCellDef="let user">{{ approvalLabel(user) }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedAt">
+      <th mat-header-cell *matHeaderCellDef>Atualizado em</th>
+      <td mat-cell *matCellDef="let user">{{ user.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Acoes</th>
+      <td mat-cell *matCellDef="let user" class="users__actions">
+        <button mat-icon-button type="button" aria-label="Editar usuario" (click)="openEditDialog(user)" [disabled]="isSaving">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button type="button" aria-label="Excluir usuario" (click)="openDeleteDialog(user)" [disabled]="isSaving">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+        {{ input.value ? 'Nenhum usuario encontrado para "' + input.value + '".' : emptyMessage }}
+      </td>
+    </tr>
+  </table>
+</section>

@@ -18,6 +18,7 @@ import {
 
 export interface ClientFormDialogData {
   client?: ClientResponse;
+  entityLabel?: string;
 }
 
 export type ClientFormDialogResult =
@@ -45,7 +46,8 @@ export class ClientFormDialogComponent {
   readonly data = inject<ClientFormDialogData>(MAT_DIALOG_DATA);
 
   readonly isEdit = Boolean(this.data.client);
-  readonly title = this.isEdit ? 'Editar cliente' : 'Adicionar cliente';
+  readonly entityLabel = this.data.entityLabel ?? 'cliente';
+  readonly title = this.isEdit ? `Editar ${this.entityLabel}` : `Adicionar ${this.entityLabel}`;
   readonly passwordLabel = this.isEdit ? 'Nova senha' : 'Senha';
   readonly passwordHint = this.isEdit ? 'Preencha apenas para alterar a senha.' : 'Minimo de 8 caracteres.';
 
