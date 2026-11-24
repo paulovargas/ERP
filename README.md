@@ -13,23 +13,23 @@ https://paulovargas.github.io/ERP
 
 ## Funcionalidades da API
 
-- Cadastro e consulta de pessoas.
-- Cadastro, consulta, atualizacao e remocao de contas.
-- Lancamentos contabeis por pessoa e conta.
-- Consulta de saldo por pessoa.
-- Consulta de extrato por conta.
+- Autenticacao de usuarios e clientes com JWT.
+- Cadastro, consulta, atualizacao, ativacao e remocao de clientes.
+- Gerenciamento de enderecos e consulta de CEP.
+- Gerenciamento de menus e acessos por usuario.
 
 ## Tecnologias
 
-- Java 11
+- Java 11 (versao declarada atualmente pela API)
 - Spring Boot 2.7.6
 - Spring Web
 - Spring Data JPA
 - PostgreSQL
-- WildFly
+- WildFly 21 (mantido conforme a configuracao atual)
 - Maven
-- Angular 19
-- TypeScript
+- Angular 22.3.0
+- TypeScript 6.0.3
+- Node.js 24.15.0 (definido em `erp-web-app/.nvmrc`)
 - RxJS
 
 ## Como executar o backend
@@ -88,8 +88,12 @@ cd erp-web-app
 Instale as dependencias:
 
 ```bash
+nvm install 24.15.0
+nvm use 24.15.0
 npm install
 ```
+
+O Node.js instalado localmente precisa atender a matriz do Angular 22. O projeto registra Node.js 24.15.0 em `erp-web-app/.nvmrc`.
 
 Execute em modo desenvolvimento:
 
@@ -190,6 +194,10 @@ Depois do deploy no WildFly, acesse:
 ```text
 http://127.0.0.1:8080/erp-api/swagger-ui/index.html
 ```
+
+## Compatibilidade do backend
+
+O backend ainda declara Java 11 e Spring Boot 2.7.6. A migracao para Java 25 depende de manter um runtime de aplicacao compativel: o WildFly 21 documentado pelo projeto fornece Servlet 4.0, enquanto Spring Boot 4 requer Servlet 6.1 para deploy externo. A configuracao atual do WildFly foi mantida.
 
 ## Objetivo do projeto
 

@@ -4,7 +4,7 @@ Este blueprint descreve o jeito de programar usado neste projeto Angular para re
 
 ## 1. Base tecnica
 
-- Framework: Angular 19 com componentes standalone.
+- Framework: Angular 22.3.0 com componentes standalone.
 - UI: Angular Material + Bootstrap 5.
 - Estado simples: services singleton com `providedIn: 'root'`.
 - HTTP: `HttpClient` com headers vindos do `AuthenticationService`.
@@ -16,14 +16,18 @@ Dependencias principais para outro projeto:
 
 ```json
 {
-  "@angular/core": "^19.2.11",
-  "@angular/router": "^19.2.11",
-  "@angular/forms": "^19.2.11",
-  "@angular/material": "^17.3.6",
+  "@angular/core": "^22.3.0",
+  "@angular/router": "^22.3.0",
+  "@angular/forms": "^22.3.0",
+  "@angular/material": "^22.3.0",
   "bootstrap": "^5.3.3",
-  "rxjs": "~7.8.0"
+  "rxjs": "~7.8.0",
+  "zone.js": "~0.16.3",
+  "typescript": "~6.0.3"
 }
 ```
+
+Use Node.js 24.15.0, registrado no arquivo `.nvmrc` do frontend.
 
 ## 2. Estrutura de pastas
 
@@ -434,23 +438,14 @@ Tema Material:
 ```scss
 @use '@angular/material' as mat;
 
-@include mat.core();
-
-$tms-primary: mat.define-palette(mat.$indigo-palette);
-$tms-accent: mat.define-palette(mat.$green-palette, A200, A100, A400);
-$tms-warn: mat.define-palette(mat.$red-palette);
-
-$tms-theme: mat.define-light-theme((
-  color: (
-    primary: $tms-primary,
-    accent: $tms-accent,
-    warn: $tms-warn,
-  ),
-  typography: mat.define-typography-config(),
-  density: 0
-));
-
-@include mat.all-component-themes($tms-theme);
+html {
+  color-scheme: light;
+  @include mat.theme((
+    color: mat.$green-palette,
+    typography: Roboto,
+    density: 0
+  ));
+}
 ```
 
 Reset e ajustes globais:
