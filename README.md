@@ -1,6 +1,6 @@
 # ERP Full Stack
 
-Aplicacao full stack de ERP criada para demonstrar conhecimentos em backend Java, frontend Angular, persistencia relacional, APIs REST e deploy em servidor de aplicacoes.
+Aplicação full stack de ERP com backend Java Spring Boot e frontend Angular, usando persistência relacional e API REST.
 
 # DEMO
 
@@ -8,7 +8,7 @@ https://paulovargas.github.io/ERP
 
 ## Modulos
 
-- `erp-api`: API REST em Java com Spring Boot, Spring Data JPA, PostgreSQL, Swagger/OpenAPI e empacotamento WAR para WildFly.
+- `erp-api`: API REST em Java com Spring Boot, Spring Data JPA, PostgreSQL, Swagger/OpenAPI e empacotamento JAR executável.
 - `erp-web-app`: aplicacao web Angular para a interface do ERP.
 
 ## Funcionalidades da API
@@ -20,12 +20,11 @@ https://paulovargas.github.io/ERP
 
 ## Tecnologias
 
-- Java 11 (versao declarada atualmente pela API)
-- Spring Boot 2.7.6
+- Java 25 (versao alvo da API)
+- Spring Boot 3.5.16
 - Spring Web
 - Spring Data JPA
 - PostgreSQL
-- WildFly 21 (mantido conforme a configuracao atual)
 - Maven
 - Angular 22.3.0
 - TypeScript 6.0.3
@@ -40,42 +39,23 @@ Entre na pasta da API:
 cd erp-api
 ```
 
-Configure no WildFly um datasource JNDI chamado:
+O perfil local usa o banco configurado por `ERP_DB_URL`, `ERP_DB_USER` e `ERP_DB_PASSWORD`. Os padrões são `jdbc:postgresql://localhost:5432/erpdb`, usuário `postgres` e senha `postgres`.
 
-```text
-java:/jdbc/erpdb
-```
+Para abrir no IntelliJ, importe `erp-api/pom.xml`, selecione JDK 25 como Project SDK e JDK do Maven, habilite annotation processing e execute `ErpApiApplication`.
 
-Para buildar o WAR:
-
-```bash
-mvn clean package
-```
-
-No Windows:
+Para gerar o JAR executável:
 
 ```cmd
-mvn clean package
+mvnw.cmd clean package
 ```
 
-O artefato sera gerado em:
+Inicie a API com:
 
-```text
-erp-api/target/erp-api.war
+```cmd
+java -jar target/erp-api.jar
 ```
 
-Para deploy via Maven, configure as variaveis de ambiente:
-
-```bash
-WILDFLY_USERNAME=seu_usuario
-WILDFLY_PASSWORD=sua_senha
-```
-
-Depois execute:
-
-```bash
-mvn clean install
-```
+A aplicação mantém o contexto `/erp-api` para preservar as URLs que o frontend já utiliza.
 
 ## Como executar o frontend
 
@@ -189,7 +169,7 @@ git push origin main
 
 ## Documentacao da API
 
-Depois do deploy no WildFly, acesse:
+Com a API em execução, acesse:
 
 ```text
 http://127.0.0.1:8080/erp-api/swagger-ui/index.html
@@ -197,7 +177,7 @@ http://127.0.0.1:8080/erp-api/swagger-ui/index.html
 
 ## Compatibilidade do backend
 
-O backend ainda declara Java 11 e Spring Boot 2.7.6. A migracao para Java 25 depende de manter um runtime de aplicacao compativel: o WildFly 21 documentado pelo projeto fornece Servlet 4.0, enquanto Spring Boot 4 requer Servlet 6.1 para deploy externo. A configuracao atual do WildFly foi mantida.
+O backend usa Java 25 e Spring Boot 3.5, empacotado como JAR executável com servidor embutido. O datasource local pode ser configurado pelas variáveis de ambiente documentadas em `erp-api/README.md`.
 
 ## Objetivo do projeto
 

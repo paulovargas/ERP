@@ -1,19 +1,20 @@
 # ERP API
 
-Projeto Java com Spring Boot para gestao de operacoes de ERP, empacotado como WAR e preparado para execucao no servidor de aplicacoes **WildFly**.
+Projeto Java com Spring Boot para gestão de operações de ERP, empacotado como JAR executável com servidor web embutido.
 
 ## Tecnologias e dependencias
 
-- **Spring Boot 2.7.6**
+- **Java 25** (versao alvo do projeto)
+- **Spring Boot 3.5.16** (linha Jakarta, compatível com Java 25)
   - Spring Web
   - Spring Data JPA
   - JDBC
 - **Banco de dados**
-  - PostgreSQL via datasource JNDI configurado no WildFly
-- **Swagger/OpenAPI** com `springdoc-openapi-ui`
-- **WildFly 21**
-- **Java 11**
+  - PostgreSQL configurado por variáveis de ambiente ou endereço local
+- **Swagger/OpenAPI** com `springdoc-openapi-starter-webmvc-ui`
 - **Maven**
+
+O projeto usa Java 25 e inicia com o servidor Tomcat embutido pelo Spring Boot. Não é necessário instalar ou configurar servidor de aplicações externo.
 
 ## Estrutura do projeto
 
@@ -28,49 +29,31 @@ src/
     `-- java/...
 ```
 
-## Deploy no WildFly
+## Abrir e executar pelo IntelliJ IDEA
 
-O projeto e empacotado como `.war` e o plugin `wildfly-maven-plugin` esta configurado para fazer o deploy automatico via management API do WildFly durante o build:
+1. Instale um JDK 25 e o plugin Lombok do IntelliJ IDEA.
+2. Abra `pom.xml` no IntelliJ e importe como projeto Maven.
+3. Defina o Project SDK e o JDK do Maven Importer como Java 25.
+4. Em `Settings > Build, Execution, Deployment > Compiler > Annotation Processors`, habilite annotation processing.
+5. Inicie o PostgreSQL local e abra a classe `ErpApiApplication` para executar com a configuracao padrao.
 
-```bash
-mvn clean install
+O perfil padrão usa o datasource configurado por `ERP_DB_URL`, `ERP_DB_USER` e `ERP_DB_PASSWORD`. Sem essas variáveis, a API usa `jdbc:postgresql://localhost:5432/erpdb`, usuário `postgres` e senha `postgres`.
+
+No PowerShell do IntelliJ, para usar Java 25 apenas na sessão atual sem alterar variáveis permanentes do Windows:
+
+```powershell
+$env:JAVA_HOME = "$env:USERPROFILE\.jdks\temurin-25.0.4.1"
+$env:Path = "$env:JAVA_HOME\bin;$env:Path"
+java -version
+.\mvnw.cmd spring-boot:run
 ```
 
-Antes de rodar o deploy, configure o datasource PostgreSQL no WildFly e defina as variaveis de ambiente `WILDFLY_USERNAME` e `WILDFLY_PASSWORD`.
+Para os comandos do painel Maven, selecione `temurin-25` em **Settings > Build Tools > Maven > Runner > JRE**.
 
-## Configuracao do PostgreSQL no WildFly
+## Configuração do PostgreSQL
 
-1. Instale o driver PostgreSQL no WildFly via modulo ou console admin.
-2. Configure um datasource JNDI com o nome `java:/jdbc/erpdb`.
-3. Exemplo de configuracao no `standalone.xml`:
+O datasource usa as variáveis `ERP_DB_URL`, `ERP_DB_USER` e `ERP_DB_PASSWORD`. Sem elas, a API usa `jdbc:postgresql://localhost:5432/erpdb` e o usuário `postgres`.
 
-```xml
-<datasource jndi-name="java:/jdbc/erpdb" pool-name="ErpApiDS" enabled="true" use-java-context="true">
-  <connection-url>jdbc:postgresql://localhost:5432/erpdb</connection-url>
-  <driver>postgresql</driver>
-  <security>
-    <user-name>postgres</user-name>
-    <password>sua_senha</password>
-  </security>
-</datasource>
-
-<drivers>
-  <driver name="postgresql" module="org.postgresql">
-    <driver-class>org.postgresql.Driver</driver-class>
-  </driver>
-</drivers>
-```
-
-## Configuracao do Spring Boot
-
-O `application.properties` esta configurado para usar o datasource JNDI do WildFly:
-
-```properties
-spring.datasource.jndi-name=java:/jdbc/erpdb
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
-spring.jpa.show-sql=true
-```
 
 ## Autenticacao JWT
 
@@ -109,7 +92,7 @@ As demais rotas devem receber o token no header:
 Authorization: Bearer jwt_gerado
 ```
 
-Por ser um projeto didatico, a chave de assinatura do JWT esta fixa no codigo em `JwtService`.
+Configure a chave de assinatura por `JWT_SECRET`. O valor padrão em `application.properties` serve apenas para desenvolvimento local; defina uma chave própria nos demais ambientes.
 
 Por padrao, a API cria automaticamente este administrador no primeiro boot:
 
@@ -130,51 +113,40 @@ Opcionalmente, defina `DEFAULT_ADMIN_EMAIL`, `DEFAULT_ADMIN_NAME`, `DEFAULT_ADMI
 
 ## Documentacao da API
 
-A documentacao da API fica disponivel apos o deploy:
+A documentação da API fica disponível após iniciar a aplicação:
 
 ```text
 http://127.0.0.1:8080/erp-api/swagger-ui/index.html
 ```
 
-## Como iniciar o WildFly localmente
-
-1. Navegue ate o diretorio da instalacao do WildFly:
-
-```bash
-cd C:/wildfly-21.0.0.Final/bin
-```
-
-2. Execute o script para iniciar o servidor:
-
-```cmd
-standalone.bat
-```
-
-3. Aguarde o servidor iniciar na porta 8080.
-
-4. Console de administracao:
-
-```text
-http://localhost:9990/
-```
-
 ## Pre-requisitos
 
-- Java 11
-- Maven 3.6+
-- WildFly 21 ou superior
+- Java 25 para desenvolvimento no IntelliJ
+- Maven Wrapper (`mvnw.cmd` no Windows ou `./mvnw` no Linux/macOS)
 - PostgreSQL Server rodando e banco `erpdb` criado
 
-## Build e deploy manual
+## Build e execução manual
 
 ```bash
-mvn clean install
+./mvnw clean package
 ```
 
-O arquivo `.war` sera gerado em:
+No Windows:
+
+```cmd
+mvnw.cmd clean package
+```
+
+Para iniciar o JAR gerado:
+
+```cmd
+java -jar target/erp-api.jar
+```
+
+O arquivo JAR executável será gerado em:
 
 ```text
-target/erp-api.war
+target/erp-api.jar
 ```
 
 ## Autor
