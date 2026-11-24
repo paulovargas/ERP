@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.config.Customizer;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -29,30 +30,28 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .cors().and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers(
-                        "/auth/login",
-                        "/api/auth/login",
-                        "/api/zip-codes/**"
-                ).permitAll()
-                .antMatchers(HttpMethod.POST, "/api/clients", "/api/users").permitAll()
-                .antMatchers(
-                        "/v3/api-docs/**",
-                        "/swagger-ui/**",
-                        "/swagger-ui.html"
-                ).permitAll()
-                .antMatchers("/api/addresses/**", "/api/clients/*/addresses/**").authenticated()
-                .antMatchers(HttpMethod.GET, "/api/menus/me").authenticated()
-                .antMatchers("/api/menus/**").hasRole("ADMIN")
-                .antMatchers("/api/clients/**", "/api/users/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic().disable()
+                .csrf(csrf -> csrf.disable())
+                .cors(Customizer.withDefaults())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(
+                                "/auth/login",
+                                "/api/auth/login",
+                                "/api/zip-codes/**"
+                        ).permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/clients", "/api/users").permitAll()
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+                        .requestMatchers("/api/addresses/**", "/api/clients/*/addresses/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/menus/me").authenticated()
+                        .requestMatchers("/api/menus/**").hasRole("ADMIN")
+                        .requestMatchers("/api/clients/**", "/api/users/**").hasRole("ADMIN")
+                        .anyRequest().authenticated())
+                .httpBasic(basic -> basic.disable())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
