@@ -1,32 +1,28 @@
-# Atualizacao da stack
+# Atualização da stack
 
 ## Objetivo
 
-Levar o ERP para Java 25 e para a versao estavel atual do Angular, mantendo PostgreSQL e a instalacao/configuracao existente do WildFly 21.
+Manter o projeto ERP executável com Java 25, Spring Boot e Angular 22.3.0, usando JAR com servidor web embutido e preservando as URLs que o frontend já consome.
 
-## Estado confirmado
+## Alteracoes
 
-- API: `pom.xml` declara Java 11 e Spring Boot 2.7.6; o WAR usa o plugin `wildfly-maven-plugin` 3.0.2.Final.
-- Documentacao do projeto aponta WildFly 21 e Servlet 4.0.
-- Frontend atualizado para Angular, CLI, Material e CDK 22.3.0; TypeScript 6.0.3; Zone.js 0.16.3.
-- Frontend registra Node.js 24.15.0 em `.nvmrc` e aceita somente linhas Node suportadas pelo Angular 22.
-- Ambiente desta maquina: JDK 11, Maven 3.8.8 e Node.js 22.15.1. Nenhum arquivo versionado com Java 25 foi encontrado.
+- [x] Definir Java 25 e Maven Compiler Plugin 3.14.1.
+- [x] Atualizar Spring Boot para 3.5.16 e migrar Servlet, Validation e Persistence para Jakarta.
+- [x] Empacotar a API como JAR executável com Tomcat embutido; remover o plugin de deploy externo.
+- [x] Atualizar Springdoc para a linha compatível com Spring Boot 3.5.
+- [x] Preservar PostgreSQL local pelas variáveis `ERP_DB_URL`, `ERP_DB_USER` e `ERP_DB_PASSWORD`.
+- [x] Manter o contexto `/erp-api` para não alterar as URLs usadas pelo frontend.
+- [x] Documentar a execução com Maven Wrapper, IntelliJ e JDK 25.
 
-## Compatibilidade do backend
+## Compatibilidade a confirmar
 
-O requisito de Java 25 conflita com a preservacao do WildFly 21 para deploy do WAR. O WildFly 21 fornece Servlet 4.0. Spring Boot 4, que suporta Java 25, requer Servlet 6.1 em containers externos. Spring Boot 2.7.18 suporta containers Servlet 4.0, mas declara compatibilidade apenas ate Java 21. Portanto, nao ha combinacao oficialmente suportada que mantenha ao mesmo tempo Java 25, Spring Boot e deploy nesse WildFly.
+O backend usa Spring Boot 3.5.16, que suporta Java 25. O projeto não depende mais de WAR, WildFly nem datasource JNDI. O frontend permanece em Angular 22.3.0.
 
-Por instrucao do usuario, a versao/configuracao do WildFly permanece inalterada. O POM do backend tambem permanece sem mudancas ate ser definida uma combinacao de runtime suportada.
+## Build
 
-## Etapas e progresso
+```cmd
+cd erp-api
+mvnw.cmd clean package
+```
 
-1. [x] Atualizar as versoes do frontend para Angular 22.3.0 e dependencias compativeis.
-2. [x] Atualizar o lockfile, o requisito de Node e a documentacao do frontend.
-3. [x] Atualizar o README e o blueprint para refletir os recursos e versoes atuais.
-4. [ ] Atualizar a API para Java 25 depois de resolver a compatibilidade com o WildFly preservado.
-5. [ ] Validar os builds com JDK 25 e Node.js suportado.
-
-## Validacao prevista
-
-- API: `mvn -f erp-api/pom.xml -DskipTests package` com a versao de Java aprovada e o runtime escolhido.
-- Frontend: `npm ci` e `npm run build` com Node.js 24.15.0 ou outra versao aceita pelo Angular 22.
+Para iniciar localmente, execute `ErpApiApplication` no IntelliJ com JDK 25 e PostgreSQL ativo, ou gere o JAR com o comando acima e execute `java -jar target/erp-api.jar`. O build do Maven ainda precisa ser validado neste ambiente.
