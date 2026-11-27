@@ -1,9 +1,11 @@
 package com.paulovargas.erpapi.config;
 
 import com.paulovargas.erpapi.entity.Client;
+import com.paulovargas.erpapi.entity.Company;
 import com.paulovargas.erpapi.entity.UserStatus;
 import com.paulovargas.erpapi.entity.UserType;
 import com.paulovargas.erpapi.repository.ClientRepository;
+import com.paulovargas.erpapi.repository.CompanyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,17 +30,28 @@ public class DefaultUserConfig {
     @Order(1)
     public CommandLineRunner createDefaultUser(
             ClientRepository clientRepository,
+            CompanyRepository companyRepository,
             PasswordEncoder passwordEncoder,
             @Value("${app.default-user.name:Administrador}") String name,
             @Value("${app.default-user.email:admin@admin.com}") String email,
             @Value("${app.default-user.password:}") String password,
             @Value("${app.default-user.document:00000000000}") String document,
-            @Value("${app.default-user.phone:00000000000}") String phone
+            @Value("${app.default-user.phone:00000000000}") String phone,
+            @Value("${app.default-company.name:Empresa padrão}") String companyName,
+            @Value("${app.default-company.document:99999999000199}") String companyDocument
     ) {
         return args -> {
             String normalizedEmail = email.trim().toLowerCase();
+            Company company = findOrCreateCompany(companyRepository, companyName, companyDocument);
 
             if (clientRepository.existsByEmail(normalizedEmail)) {
+                clientRepository.findByEmail(normalizedEmail).ifPresent(existing -> {
+                    if (existing.getCompany() == null) {
+                        existing.setCompany(company);
+                        clientRepository.save(existing);
+                    }
+                });
+                associateExistingUsers(clientRepository, company);
                 LOGGER.info("Usuario administrador padrao ja existe: {}", normalizedEmail);
                 return;
             }
@@ -55,8 +68,10 @@ public class DefaultUserConfig {
             admin.setUserType(UserType.ADMIN);
             admin.setStatus(UserStatus.ACTIVE);
             admin.setSellerApproved(true);
+            admin.setCompany(company);
 
             clientRepository.save(admin);
+            associateExistingUsers(clientRepository, company);
 
             LOGGER.info("Usuario administrador padrao criado: {}", normalizedEmail);
 
@@ -66,6 +81,23 @@ public class DefaultUserConfig {
                 LOGGER.warn("Senha temporaria do administrador: {}", resolvedPassword);
             }
         };
+    }
+
+    private Company findOrCreateCompany(CompanyRepository companyRepository, String name, String document) {
+        String normalizedDocument = document.replaceAll("\\D", "");
+        return companyRepository.findByDocument(normalizedDocument).orElseGet(() -> {
+            Company company = new Company();
+            company.setName(name.trim());
+            company.setDocument(normalizedDocument);
+            return companyRepository.save(company);
+        });
+    }
+
+    private void associateExistingUsers(ClientRepository clientRepository, Company company) {
+        clientRepository.findAll().stream()
+                .filter(client -> client.getCompany() == null)
+                .forEach(client -> client.setCompany(company));
+        clientRepository.flush();
     }
 
     private String resolveDocument(String document, ClientRepository clientRepository) {

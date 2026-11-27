@@ -67,6 +67,10 @@ public class Client {
     @Column(nullable = false)
     private boolean sellerApproved;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "client_menus",

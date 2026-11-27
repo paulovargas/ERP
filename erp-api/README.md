@@ -111,6 +111,12 @@ Se voce ja usava `ERP_INITIAL_PASSWORD`, ela tambem sera aceita como fallback pa
 
 Opcionalmente, defina `DEFAULT_ADMIN_EMAIL`, `DEFAULT_ADMIN_NAME`, `DEFAULT_ADMIN_DOCUMENT` e `DEFAULT_ADMIN_PHONE`. Se o e-mail ja existir no banco, a aplicacao nao altera a senha desse usuario.
 
+## Fundacao multiempresa
+
+A API cria uma empresa padrao no primeiro boot, configurada por `DEFAULT_COMPANY_NAME` e `DEFAULT_COMPANY_DOCUMENT` (documento padrao local: `99999999000199`). O administrador inicial e os usuarios existentes sem empresa sao associados a essa empresa. A coluna de vínculo ainda aceita nulo para compatibilidade nesta etapa.
+
+Esta entrega prepara o modelo de empresa, mas **ainda nao isola os dados por empresa**. O escopo de tenant sera aplicado aos endpoints em uma etapa posterior; nao cadastre empresas diferentes para uso real ate essa etapa estar concluida.
+
 ## Documentacao da API
 
 A documentação da API fica disponível após iniciar a aplicação:
